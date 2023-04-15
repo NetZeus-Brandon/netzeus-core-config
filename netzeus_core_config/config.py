@@ -1,7 +1,9 @@
 from pydantic import BaseSettings, PostgresDsn
 
+
 class AsyncPostgresDsn(PostgresDsn):
     allowed_schemes = {"postgresql+asyncpg"}
+
 
 class Settings(BaseSettings):
     # App settings
@@ -9,9 +11,11 @@ class Settings(BaseSettings):
     API_BASE_URL: str = "/api/v1"
     FIRST_SUPERUSER: str = "admin"
     FIRST_SUPERUSER_PASSWORD: str = "admin"
-    
+
     # Database Settings
-    DATABASE_URI: AsyncPostgresDsn = "postgresql+asyncpg://postgres:netzeus@localhost:5432/netzeus"
+    DATABASE_URI: AsyncPostgresDsn = (
+        "postgresql+asyncpg://postgres:netzeus@localhost:5432/netzeus"
+    )
     DATABASE: str = "netzeus"
 
     # Security and Authentication Settings
@@ -19,7 +23,7 @@ class Settings(BaseSettings):
     API_KEY_HEADER: str = "NetZeus-API-Key"
     SECRET_KEY: str = "change-this-secret-key"
     ACCESS_TOKEN_ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRES_IN: int = 60 * 60 * 6 # 6 Hours
+    ACCESS_TOKEN_EXPIRES_IN: int = 60 * 60 * 6  # 6 Hours
 
-    class Config():
+    class Config:
         env_file = "~/.netzeus_env"
